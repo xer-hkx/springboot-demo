@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.resource.share.dao.ResourceDao">
+        <select id="queryResource" resultType="com.resource.share.entity.Resource">
+            SELECT id, name, description, publish_time, user_id, download
+            FROM resource_table
+        </select>
+        <select id="queryResourceById" resultType="com.resource.share.entity.Resource">
+            SELECT id, name, description, publish_time, user_id, download
+            FROM resource_table
+            WHERE id=#{id}
+        </select>
+    <insert id="insertResource" useGeneratedKeys="true" keyProperty="id" keyColumn="id"
+            parameterType="com.resource.share.entity.Resource">
+        INSERT INTO resource_table(name, description, publish_time, user_id, download)
+        VALUES (#{name},#{description},#{publishTime},#{userId},#{download})
+    </insert>
+    <update id="updateResource" parameterType="com.resource.share.entity.Resource">
+        UPDATE resource_table
+        <set>
+            <if test="name!=null">user_name=#{name},</if>
+            <if test="description!=null">password=#{description},</if>
+            <if test="publishTime!=null">is_admin=#{publishTime},</if>
+            <if test="userId!=null">token=#{userId},</if>
+            <if test="download!=null">token=#{download},</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+    <delete id="deleteResource">
+        DELETE FROM resource_table
+        WHERE id=#{id}
+    </delete>
+    </mapper>

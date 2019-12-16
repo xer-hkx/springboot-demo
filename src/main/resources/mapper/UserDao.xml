@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.resource.share.dao.UserDao">
+        <select id="queryUser" resultType="com.resource.share.entity.User">
+            SELECT user_id, user_name, password, is_admin, token
+            FROM user
+        </select>
+        <select id="queryUserByToken" resultType="com.resource.share.entity.User">
+            SELECT user_id, user_name, password, is_admin, token
+            FROM user
+            WHERE token=#{token}
+        </select>
+    <select id="queryUserByIsAdmin" resultType="com.resource.share.entity.User">
+        SELECT user_id, user_name, password, is_admin, token
+        FROM user
+        WHERE is_admin=#{isAdmin}
+    </select>
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id"
+            parameterType="com.resource.share.entity.User">
+        INSERT INTO user(user_name, password, is_admin, token)
+        VALUES (#{userName},#{password},#{isAdmin},#{token})
+    </insert>
+    <update id="updateUser" parameterType="com.resource.share.entity.User">
+        UPDATE user
+        <set>
+            <if test="userName!=null">user_name=#{userName},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="isAdmin!=null">is_admin=#{isAdmin},</if>
+            <if test="token!=null">token=#{token},</if>
+        </set>
+        WHERE user_id=#{userId}
+    </update>
+    <delete id="deleteUser">
+        DELETE FROM user
+        WHERE user_id=#{userId}
+    </delete>
+    </mapper>
