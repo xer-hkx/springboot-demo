@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/")
@@ -18,10 +19,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/admin")
-    private Result<User> admin(Integer isAdmin){
+    @PostMapping("/login")
+    private Result<User> login(@RequestBody User user){
         Result<User> result = new Result<>();
-        User user = userService.queryUserByIsAdmin(isAdmin);
+        user = userService.queryUser(user);
+        if(user == null){
+            result.setMsg("用户名或密码错误！");
+            result.setCode(300);
+        }else{
+            result.setMsg("success");
+            result.setCode(200);
+        }
+        result.setData(user);
+        return result;
+    }
+
+    @RequestMapping("/admin")
+    private Result<User> admin(){
+        Result<User> result = new Result<>();
+        User user = userService.queryUserByIsAdmin(1);
         result.setMsg("管理员账号");
         result.setData(user);
         return result;
@@ -38,6 +54,7 @@ public class UserController {
     private  Result<User> addUser(@RequestBody User user){
         Result<User> result = new Result<>();
         result.setMsg("success");
+        user.setToken(UUID.randomUUID().toString());
         userService.insertUser(user);
         result.setData(user);
         return result;
