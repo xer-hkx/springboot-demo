@@ -1,14 +1,28 @@
 package com.resource.share.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Resource {
     private Integer id;
     private String name;
     private String description;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date publishTime;
+
     private Integer userId;
-    private Integer download;
+    private Integer view;
+
+    public Integer getView() {
+        return view;
+    }
+
+    public void setView(Integer view) {
+        this.view = view;
+    }
 
     public Integer getId() {
         return id;
@@ -50,11 +64,4 @@ public class Resource {
         this.userId = userId;
     }
 
-    public Integer getDownload() {
-        return download;
-    }
-
-    public void setDownload(Integer download) {
-        this.download = download;
-    }
 }

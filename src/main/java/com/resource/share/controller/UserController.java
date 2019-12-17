@@ -1,4 +1,4 @@
-package com.resource.share.web;
+package com.resource.share.controller;
 
 
 import com.resource.share.entity.User;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;

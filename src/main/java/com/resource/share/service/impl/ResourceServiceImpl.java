@@ -30,7 +30,7 @@ public class ResourceServiceImpl implements ResourceService {
     public boolean insertResource(Resource resource) {
         if(resource.getName() != null && !"".equals(resource.getName())){
             resource.setPublishTime(new Date());
-            resource.setDownload(0);
+            resource.setView(0);
             try{
                 int effectedNum = resourceDao.insertResource(resource);
                 if(effectedNum > 0){
