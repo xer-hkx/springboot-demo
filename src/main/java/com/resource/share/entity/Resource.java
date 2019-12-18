@@ -15,6 +15,15 @@ public class Resource {
 
     private Integer userId;
     private Integer view;
+    private String realName;
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
 
     public Integer getView() {
         return view;

@@ -31,6 +31,7 @@ public class UserController {
             result.setCode(200);
         }
         result.setData(user);
+
         return result;
     }
 

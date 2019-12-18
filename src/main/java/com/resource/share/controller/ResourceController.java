@@ -26,4 +26,13 @@ public class ResourceController {
         result.setData(list);
         return result;
     }
+
+    @GetMapping("/delete")
+    private Result delete(Integer id){
+        Result result = new Result();
+        resourceService.deleteResource(id);
+        result.setMsg("删除成功");
+        result.setCode(200);
+        return result;
+    }
 }
